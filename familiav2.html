@@ -398,9 +398,18 @@
     const btnEnterMusic = document.getElementById("btnEnterMusic");
 
     document.getElementById("fecha").textContent = "14 de febrero de 2026";
-    document.getElementById("photo").src = PHOTO_URL;
+    const photo = document.getElementById("photo");
+    photo.src = PHOTO_URL;
+
+    photo.onerror = () => {
+      alert("Fallo FOTO: no se pudo cargar. Revisa la ruta o hospédala en GitHub (assets).");
+    };
 
     const audio = document.getElementById("audio");
+
+    audio.addEventListener("error", () => {
+      alert("Fallo AUDIO: no se pudo cargar. Revisa la ruta o el formato del mp3.");
+    });
 
     let trackIndex = 0;
     function loadTrack(i){
@@ -515,4 +524,5 @@
   </script>
 </body>
 </html>
+
 
