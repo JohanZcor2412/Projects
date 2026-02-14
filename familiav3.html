@@ -213,12 +213,22 @@
     }
     .polaroid img{
       width:100%;
-      height: min(54vh, 380px);   /* ✅ se adapta al alto del móvil */
-      object-fit:cover;
+      height: min(54vh, 380px);
+      object-fit: cover;        /* PC se mantiene */
+      background:#00000010;
       border-radius:10px;
       display:block;
       filter:saturate(1.05) contrast(1.05);
     }
+
+    /* ✅ En móvil: que NO recorte los costados */
+    @media (max-width: 520px){
+      .polaroid img{
+        object-fit: contain;    /* muestra la foto completa */
+        height: min(46vh, 320px);
+      }
+    }
+    
     .caption{
       margin-top:10px;
       color:#1f1f1f;
@@ -515,6 +525,7 @@
   </script>
 </body>
 </html>
+
 
 
 
