@@ -398,8 +398,7 @@
     const btnEnterMusic = document.getElementById("btnEnterMusic");
 
     document.getElementById("fecha").textContent = "14 de febrero de 2026";
-    const photo = document.getElementById("photo");
-    photo.src = PHOTO_URL;
+    document.getElementById("photo").src = PHOTO_URL;
 
     photo.onerror = () => {
       alert("Fallo FOTO: no se pudo cargar. Revisa la ruta o hospédala en GitHub (assets).");
@@ -524,5 +523,6 @@
   </script>
 </body>
 </html>
+
 
 
