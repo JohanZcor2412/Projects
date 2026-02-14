@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Para Mi familia💝</title>
+  <style>
+    :root{
+      --bg1:#0b1021; --bg2:#2b0f1f;
+      --card:#ffffff10; --border:#ffffff25;
+      --text:#ffffff; --muted:#ffffffc2;
+      --accent:#ff4d7d; --accent2:#ffd1dc;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 20%, #ff4d7d26, transparent 60%),
+        radial-gradient(900px 500px at 85% 85%, #ffd1dc18, transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;              /* ✅ deja scroll vertical */
+      -webkit-overflow-scrolling:touch;
+      padding: 18px;
+      padding-top: calc(18px + env(safe-area-inset-top));
+      padding-bottom: calc(18px + env(safe-area-inset-bottom));
+      display:grid;
+      place-items:center;
+    }
+
+    .glow{
+      position:fixed; inset:-40%;
+      background: radial-gradient(circle at 30% 30%, #ff4d7d22, transparent 40%),
+                  radial-gradient(circle at 70% 70%, #ffd1dc18, transparent 45%);
+      filter: blur(20px);
+      animation: breathe 6s ease-in-out infinite;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes breathe{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+    /* ======= CUPIDOS EN ENTRADA ======= */
+    .gateFX{
+      position:fixed; inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+      display:none;
+    }
+    .gateFX span{
+      position:absolute;
+      bottom:-40px;
+      opacity:.9;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.35));
+      animation: cupidFloat linear forwards;
+    }
+    @keyframes cupidFloat{
+      from{ transform: translateY(0) translateX(0) rotate(0deg); opacity:.9; }
+      to  { transform: translateY(-120vh) translateX(var(--drift)) rotate(14deg); opacity:0; }
+    }
+
+    .gate{
+      width: min(520px, 100%);
+      background:#ffffff10;
+      border:1px solid #ffffff25;
+      border-radius:28px;
+      padding:22px;
+      box-shadow: 0 26px 90px rgba(0,0,0,.5);
+      backdrop-filter: blur(10px);
+      position:relative;
+      z-index:1;
+      transform: rotate(-1.2deg);
+    }
+    .gateInner{ transform: rotate(1.2deg); }
+    .gateTop{
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      margin-bottom:14px;
+    }
+    .miniHeart{
+      width:54px;height:54px;border-radius:999px;
+      display:grid;place-items:center;
+      background:#ffffff12;
+      border:1px solid #ffffff22;
+      font-size:22px;
+    }
+    .gateTitle{
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight:950;
+      margin:0;
+      text-align:center;
+    }
+    .gateTitle span{ color: var(--accent2); }
+    .gateTip{
+      margin-top:8px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .gateForm{ display:grid; gap:10px; margin-top:12px; }
+    .gateBtn{
+      width:100%;
+      border:none;
+      border-radius:16px;
+      padding:14px;
+      font-size:16px;
+      font-weight:950;
+      cursor:pointer;
+      background:#ffffff12;
+      border:1px solid #ffffff22;
+      color:#fff;
+    }
+    .gateBtn:active{ transform: scale(.99); }
+
+    /* ======= TARJETA ======= */
+    .card{
+      width:min(820px, 100%);
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:28px;
+      padding:18px;
+      box-shadow: 0 26px 90px rgba(0,0,0,.5);
+      backdrop-filter: blur(10px);
+      position:relative;
+      z-index:1;
+      display:none;
+
+      /* ✅ clave para móvil: no se corta y permite ver todo */
+      max-height: calc(100vh - 36px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .top{
+      display:flex; gap:10px;
+      align-items:center; justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .chip{
+      padding:8px 12px;
+      border:1px solid #ffffff2f;
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:650;
+      background:#00000018;
+      font-size:14px;
+    }
+
+    h1{
+      margin:10px 0 6px;
+      font-size: clamp(24px, 6vw, 44px);
+      text-align:center;
+    }
+    .subtitle{
+      margin:0 0 12px;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:15px;
+    }
+
+    .typing{
+      display:inline-block;
+      border-right: 2px solid #ffffff80;
+      padding-right:6px;
+      animation: caret 0.8s steps(1) infinite;
+    }
+    @keyframes caret{ 50%{border-color:transparent} }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:12px;
+      align-items:start;
+    }
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1fr 1fr; }
+      .card{ padding:26px; }
+    }
+
+    .letter{
+      background:#00000018;
+      border:1px solid #ffffff22;
+      border-radius:20px;
+      padding:16px;
+      line-height:1.75;
+      font-size:15px;
+    }
+    .letter b{color:var(--accent2)}
+
+    .photoWrap{
+      background:#00000018;
+      border:1px solid #ffffff22;
+      border-radius:20px;
+      padding:14px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .polaroid{
+      width: min(420px, 100%);
+      background:#ffffff;
+      border-radius:14px;
+      padding:12px 12px 16px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      overflow:hidden;
+      transform: rotate(-1deg);
+    }
+    .polaroid img{
+      width:100%;
+      height: min(54vh, 380px);   /* ✅ se adapta al alto del móvil */
+      object-fit:cover;
+      border-radius:10px;
+      display:block;
+      filter:saturate(1.05) contrast(1.05);
+    }
+    .caption{
+      margin-top:10px;
+      color:#1f1f1f;
+      font-weight:900;
+      text-align:center;
+    }
+
+    .actions{
+      display:flex; justify-content:center;
+      gap:10px; flex-wrap:wrap;
+      margin-top:14px;
+    }
+    button{
+      border:none; padding:12px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      font-weight:850;
+      font-size:15px;
+      transition:transform .12s;
+    }
+    button:active{transform:scale(.98)}
+    .primary{
+      background: linear-gradient(135deg, var(--accent), #ff7aa0);
+      color:#14060d;
+      box-shadow: 0 14px 30px rgba(255,77,125,.22);
+    }
+    .ghost{
+      background:#ffffff10;
+      border:1px solid #ffffff30;
+      color:#fff;
+    }
+
+    .msg{
+      margin-top:12px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:#00000018;
+      border:1px solid #ffffff22;
+      display:none;
+      text-align:center;
+      color:#fff;
+      font-weight:800;
+    }
+
+    .audioWrap{ margin-top:12px; display:flex; justify-content:center; }
+    audio{ width: min(620px, 100%); }
+
+    .footer{
+      margin-top:10px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .heart{
+      position:fixed;
+      bottom:-30px;
+      font-size:22px;
+      animation: floatUp linear forwards;
+      opacity:.92;
+      user-select:none;
+      pointer-events:none;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.35));
+      z-index:0;
+    }
+    @keyframes floatUp{
+      from{transform:translateY(0) translateX(0) scale(1); opacity:.92;}
+      to{transform:translateY(-120vh) translateX(var(--drift)) scale(1.35); opacity:0;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow"></div>
+  <div class="gateFX" id="gateFX"></div>
+
+  <section class="gate" id="gate">
+    <div class="gateInner">
+      <div class="gateTop">
+        <div class="miniHeart">💗</div>
+        <h2 class="gateTitle">Para <span>mi familia</span> 💖</h2>
+      </div>
+
+      <div class="gateTip">Haz clic para abrir la tarjeta 💝</div>
+
+      <div class="gateForm">
+        <button class="gateBtn" id="btnEnterMusic">Abrir tarjeta ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="card" id="mainCard">
+    <div class="top">
+      <span class="chip">💌 De Atenea y Johan</span>
+      <span class="chip">✨ Para Mi familia</span>
+      <span class="chip" id="fecha">14 de febrero de 2026</span>
+    </div>
+
+    <h1>Familia, Feliz San Valentín 💝</h1>
+    <p class="subtitle">
+      Les hicimos este detalle con mucho amor:
+      <br><span class="typing" id="typing"></span>
+    </p>
+
+    <section class="grid">
+      <section class="letter">
+        <p><b>Mi hermosa familia,</b></p>
+        <p><b>¡Feliz 14 de febrero!</b> 💝</p>
+        <p>Hoy queremos celebrar el amor del bueno: el que cuida, acompaña y no se rinde. Y ese amor se siente más fuerte gracias a ustedes.</p>
+        <p>Gracias por su cariño, por su paciencia y por estar presentes en los altos y en los bajos. De verdad valoramos cada detalle.</p>
+        <p><b>Los amamos</b>… y esperamos que les guste este presente que hicimos con mucho amor. 😌💘</p>
+        <p>Que este día les recuerde lo importantes que son para nosotros. Los llevamos en el corazón, siempre. 🤍✨</p>
+        <p style="margin:0;"><b>Con mucho cariño, Atenea y Johan</b></p>
+      </section>
+
+      <div class="photoWrap">
+        <div class="polaroid">
+          <img id="photo" alt="Foto de familia" />
+          <div class="caption">Mi hermosa familia 💞</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="primary" id="btnMusic">▶ Reproducir música</button>
+      <button class="ghost" id="btnMensaje">🌹 Mensaje secreto</button>
+      <button class="ghost" id="btnCorazones">💗 Más corazones</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+
+    <div class="audioWrap">
+      <audio id="audio" controls preload="auto"></audio>
+    </div>
+
+    <div class="footer">
+      Nota: Que Dios los bendiga siempre.
+    </div>
+  </main>
+
+  <script>
+    const OPENING_URL = "https://www.dropbox.com/scl/fi/55mjlrvlise7ql4mv6v0u/U2-With-Or-Without-You-Official-Music-Video.mp3?rlkey=cswio5x90lsi0fwdpfahfi8yc&st=x4wnk0bb&dl=1";
+
+    const PLAYLIST = [
+      "https://www.dropbox.com/scl/fi/wlxccsprxykrvxwpqvyym/Baltimora-Tarzan-Boy.mp3?rlkey=iq9vo1fj680u90a7eq4i6vu5d&st=58b6q7vn&dl=1",
+      "https://www.dropbox.com/scl/fi/55mjlrvlise7ql4mv6v0u/U2-With-Or-Without-You-Official-Music-Video.mp3?rlkey=cswio5x90lsi0fwdpfahfi8yc&st=x4wnk0bb&dl=1"
+    ];
+
+    const PHOTO_URL = "https://www.dropbox.com/scl/fi/1nlrv52jqtzqm2lxttkqw/WhatsApp-Image-2026-02-14-at-1.43.34-PM.jpeg?rlkey=604i4nfxm5z3k1v331qeohu95&st=h6dvzmtp&dl=1";
+
+    const gateFX = document.getElementById("gateFX");
+    function startCupidFX(){
+      gateFX.style.display = "block";
+      const icons = ["🏹","💘","💘","🪽","💗","✨","💞"];
+      const spawn = () => {
+        const s = document.createElement("span");
+        s.textContent = icons[Math.floor(Math.random()*icons.length)];
+        s.style.left = (Math.random()*100) + "vw";
+        s.style.animationDuration = (3.2 + Math.random()*2.8) + "s";
+        s.style.setProperty("--drift", ((Math.random()*160)-80) + "px");
+        s.style.fontSize = (18 + Math.random()*28) + "px";
+        gateFX.appendChild(s);
+        setTimeout(()=>s.remove(), 7000);
+      };
+      for(let i=0;i<14;i++) setTimeout(spawn, i*120);
+      window.__cupidTimer = setInterval(spawn, 180);
+    }
+    function stopCupidFX(){
+      gateFX.style.display = "none";
+      if(window.__cupidTimer) clearInterval(window.__cupidTimer);
+      gateFX.innerHTML = "";
+    }
+    startCupidFX();
+
+    const gate = document.getElementById("gate");
+    const mainCard = document.getElementById("mainCard");
+    const btnEnterMusic = document.getElementById("btnEnterMusic");
+
+    document.getElementById("fecha").textContent = "14 de febrero de 2026";
+    document.getElementById("photo").src = PHOTO_URL;
+
+    const audio = document.getElementById("audio");
+
+    let trackIndex = 0;
+    function loadTrack(i){
+      trackIndex = (i + PLAYLIST.length) % PLAYLIST.length;
+      audio.src = PLAYLIST[trackIndex];
+      audio.load();
+    }
+    loadTrack(0);
+
+    audio.addEventListener("ended", async () => {
+      loadTrack(trackIndex + 1);
+      try{ await audio.play(); }catch(e){}
+    });
+
+    const btnMusic = document.getElementById("btnMusic");
+    const btnMensaje = document.getElementById("btnMensaje");
+    const btnCorazones = document.getElementById("btnCorazones");
+    const msgBox = document.getElementById("msg");
+    let playing = false;
+
+    const typingEl = document.getElementById("typing");
+    const typingText = "los queremos.";
+    let ti = 0;
+    function type(){
+      typingEl.textContent = typingText.slice(0, ti++);
+      if(ti <= typingText.length) setTimeout(type, 45);
+    }
+
+    async function playOpeningThenMain(){
+      try{
+        audio.src = OPENING_URL;
+        audio.loop = false;
+        audio.load();
+        await audio.play();
+        playing = true;
+        btnMusic.textContent = "⏸ Pausar música";
+        audio.onended = async () => {
+          audio.onended = null;
+          loadTrack(0);
+          try{ await audio.play(); }catch(e){}
+        };
+      }catch(e){}
+    }
+
+    function abrirTarjeta(){
+      stopCupidFX();
+      gate.style.display = "none";
+      mainCard.style.display = "block";
+      type();
+      lanzarCorazones(16);
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    btnEnterMusic.addEventListener("click", async () => {
+      await playOpeningThenMain();
+      abrirTarjeta();
+    });
+
+    btnMusic.addEventListener("click", async () => {
+      try{
+        if(!playing){
+          audio.muted = false;
+          audio.volume = 1;
+          if(!audio.src) loadTrack(0);
+          await audio.play();
+          playing = true;
+          btnMusic.textContent = "⏸ Pausar música";
+          lanzarCorazones(10);
+        }else{
+          audio.pause();
+          playing = false;
+          btnMusic.textContent = "▶ Reproducir música";
+        }
+      }catch(e){
+        alert("En iPhone: toca Play en el reproductor si el navegador lo bloquea.");
+      }
+    });
+
+    const mensajes = [
+      "Feliz 14, familia. ❤️",
+      "Hoy celebro el amor que nos une, incluso en la distancia. ✨",
+      "Gracias por estar en las buenas y malas. 🤍",
+      "Lejos, pero unidos desde el corazón. 🤍",
+      "Ustedes son nuestro hogar: donde estemos. 🏡",
+      "Los amamos con todo el corazón. Siempre. 💛"
+    ];
+
+    btnMensaje.addEventListener("click", () => {
+      msgBox.style.display = "block";
+      msgBox.textContent = mensajes[Math.floor(Math.random()*mensajes.length)];
+      lanzarCorazones(14);
+    });
+
+    btnCorazones.addEventListener("click", () => lanzarCorazones(22));
+
+    function lanzarCorazones(n=10){
+      const icons = ["💗","💖","💘","❤️","💞","💕","💓","💝","💟","❣️","❤️‍🔥"];
+      for(let i=0;i<n;i++){
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.textContent = icons[Math.floor(Math.random()*icons.length)];
+        h.style.left = (Math.random()*100) + "vw";
+        h.style.animationDuration = (3 + Math.random()*2.6) + "s";
+        h.style.setProperty("--drift", ((Math.random()*140)-70) + "px");
+        h.style.fontSize = (16 + Math.random()*26) + "px";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(), 6500);
+      }
+    }
+
+    setTimeout(()=>lanzarCorazones(10), 500);
+  </script>
+</body>
+</html>
